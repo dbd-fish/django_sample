@@ -1,6 +1,7 @@
 # 大事な作業メモ
 環境立ち上げ
 docker-compose up
+docker-compose up -d
 
 開発環境のURL
 http://localhost:8000/
@@ -11,11 +12,47 @@ http://localhost:8000/admin/auth/user/add/
 PgAdminのURL
 http://localhost:5050/browser/
 
+# 設計メモ
+DjangoはアプリごとにURLやテーブルを作るっぽい
+→今回の場合はブログ用APIを一か所にまとめる
+→viewやhtmlファイルについてもアプリ配下においておく
+→静的ファイル(CSSなど)はアプリ配下のstaticフォルダ内で管理する
+
+### テーブル名
+- 趣味記事一覧テーブル(仕事記事一覧テーブルも同様)
+    記事ID(shortuuidにしたい。shortuuidをURLパスにしたい。)
+    趣味タグID(複数タグを考慮してCSV形式かな？)
+    記事タイトル
+    記事本文？(概要が別項目であると望ましいとりあえず本文だけにする)
+    記事作成日
+    記事更新日
+    論理削除フラグ
+
+- タグ一覧テーブル(仕事と趣味で共用)
+    タグID(普通のAutoIncrementでいいか)
+    カテゴリID(仕事タグなのか趣味タグなのか判別)
+    タグ名
+    作成日
+    更新日
+    論理削除フラグ
+
+### API
+- 趣味記事リスト抽出処理(仕事記事リスト抽出処理)
+    趣味記事一覧テーブルからID、タグ、記事タイトル、本文を抽出する。
+- 単一趣味記事抽出処理(単一仕事記事抽出処理)
+    趣味記事一覧テーブルから特定IDの全項目を抽出する。
+    - 記事更新日で降順にする
+- 趣味タグ一覧抽出処理(仕事タグ一覧抽出処理)
+    趣味タグ一覧を抽出する。
+    - 件数が多いものを一番上に並べる
+
+
+
 # 後でやることメモ
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
-
-
+ログを作る
 # メモ
+
 djangoの練習
 
 djangoの立ち上げコマンド
@@ -61,3 +98,14 @@ Username: POSTGRES_USER で指定したユーザー名（例: user）。
 Password: POSTGRES_PASSWORD で指定したパスワード（例: password）。
 「Save」をクリックして設定を保存します。
 ```
+
+UUID
+https://zenn.dev/kaorumori/articles/08ff8106300a7b
+
+# 参考サイト
+https://daeudaeu.com/django-staticfile/#i-4
+https://daeudaeu.com/django-mechanism/#migrations
+https://zenn.dev/j5ik2o/articles/a085ab3e3d0f197f6559
+
+参考ブログ
+https://itosae.com/archives/467
