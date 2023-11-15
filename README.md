@@ -51,7 +51,12 @@ DjangoはアプリごとにURLやテーブルを作るっぽい
 # 後でやることメモ
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
 ログを作る
+PoetryとPyenvなどの導入
+
 # メモ
+docker container exec -it django_sample-web-1 bash
+
+python manage.py startapp blog
 
 djangoの練習
 
