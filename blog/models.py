@@ -11,10 +11,14 @@ class ArticleTag(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
 
+    class Meta:
+        """デフォルトのソート条件"""
+        ordering = ['created_date']
 
 class PrivateArticle(models.Model):
     """趣味関連記事"""
     article_id = ShortUUIDField(primary_key=True)
+    # ForeignKeyではなくManyToManyFieldでArticleTagテーブルに存在するデータが複数個入るように設定できているはず
     # private_tag_id = models.ForeignKey(ArticleTag, on_delete=models.CASCADE, related_name="private_tag_id") 
     private_tag_names = models.ManyToManyField(ArticleTag)
     title = models.CharField(max_length=100)
@@ -22,6 +26,10 @@ class PrivateArticle(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
+
+
+    class Meta:
+        ordering = ['created_date']
 
 class JobArticle(models.Model):
     """仕事関連記事"""
@@ -33,3 +41,6 @@ class JobArticle(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_date']

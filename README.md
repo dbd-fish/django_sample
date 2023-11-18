@@ -1,7 +1,13 @@
+# 直近でやること
+ダミーデータを作成する
+
 # 大事な作業メモ
 環境立ち上げ
 docker-compose up
 docker-compose up -d
+
+コンテナに入る
+docker container exec -it django_sample-web-1 bash
 
 開発環境のURL
 http://localhost:8000/
@@ -11,6 +17,10 @@ http://localhost:8000/admin/auth/user/add/
 
 PgAdminのURL
 http://localhost:5050/browser/
+
+インストールしたものを確認
+pip list
+
 
 # 設計メモ
 DjangoはアプリごとにURLやテーブルを作るっぽい
