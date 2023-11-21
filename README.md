@@ -1,5 +1,6 @@
 # 直近でやること
-ダミーデータを作成する
+単体テストが動かない問題の解決。
+URLからAPIの動作確認。
 
 # 大事な作業メモ
 環境立ち上げ
@@ -30,6 +31,15 @@ pip list
     python manage.py loaddata dummy_data.json
 
     注意：テーブル内のデータも削除したい場合はDBを削除する必要あり
+
+APIの動作確認
+    http://127.0.0.1:8000/tags/
+    http://127.0.0.1:8000/tags/
+    http://127.0.0.1:8000/tags/
+    http://localhost:8000/private_articles/?req=all
+
+単体テストの実行
+python manage.py test blog.tests
 
 # 設計メモ
 DjangoはアプリごとにURLやテーブルを作るっぽい
@@ -115,6 +125,8 @@ Pgadmin4の接続手順
 「Create」を選択し、「Server...」をクリックします。
 
 新しいサーバーの設定画面が表示されます。以下の情報を入力します：
+
+Docstringに準拠したコメントをつける
 
 Name: 任意の名前を入力します（例: My PostgreSQL Server）。
 Connection タブ:
