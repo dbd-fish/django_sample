@@ -1,0 +1,150 @@
+[
+  {
+      "model": "blog.articletag",
+      "pk": "Private1",
+      "fields": {
+          "tag_name": "Private1",
+          "tag_type": 1,
+          "created_date": "2023-01-01T00:00:00Z",
+          "updated_date": "2023-01-01T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.articletag",
+      "pk": "Private2",
+      "fields": {
+          "tag_name": "Private2",
+          "tag_type": 1,
+          "created_date": "2023-01-02T00:00:00Z",
+          "updated_date": "2023-01-02T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.articletag",
+      "pk": "Job1",
+      "fields": {
+          "tag_name": "Job1",
+          "tag_type": 2,
+          "created_date": "2023-01-03T00:00:00Z",
+          "updated_date": "2023-01-03T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.articletag",
+      "pk": "Job2",
+      "fields": {
+          "tag_name": "Job2",
+          "tag_type": 2,
+          "created_date": "2023-01-04T00:00:00Z",
+          "updated_date": "2023-01-04T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.privatearticle",
+      "pk": "PrivateArticle1",
+      "fields": {
+          "article_id": "PrivateArticle1",
+          "private_tag_names": "Private1, Private2",
+          "title": "Private Article 1",
+          "body": "Body of Private Article 1",
+          "created_date": "2023-01-01T00:00:00Z",
+          "updated_date": "2023-01-01T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.privatearticle",
+      "pk": "PrivateArticle2",
+      "fields": {
+          "article_id": "PrivateArticle2",
+          "private_tag_names": "Private1, Private2",
+          "title": "Private Article 2",
+          "body": "Body of Private Article 2",
+          "created_date": "2023-01-02T00:00:00Z",
+          "updated_date": "2023-01-02T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.privatearticle",
+      "pk": "PrivateArticle3",
+      "fields": {
+          "article_id": "PrivateArticle3",
+          "private_tag_names": "Private2",
+          "title": "Private Article 3",
+          "body": "Body of Private Article 3",
+          "created_date": "2023-01-03T00:00:00Z",
+          "updated_date": "2023-01-03T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.privatearticle",
+      "pk": "PrivateArticle4",
+      "fields": {
+          "article_id": "PrivateArticle4",
+          "private_tag_names": "Private1",
+          "title": "Private Article 4",
+          "body": "Body of Private Article 4",
+          "created_date": "2023-01-04T00:00:00Z",
+          "updated_date": "2023-01-04T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.jobarticle",
+      "pk": "JobArticle1",
+      "fields": {
+          "article_id": "JobArticle1",
+          "job_tag_names": "Job1, Job2",
+          "title": "Job Article 1",
+          "body": "Body of Job Article 1",
+          "created_date": "2023-01-01T00:00:00Z",
+          "updated_date": "2023-01-01T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.jobarticle",
+      "pk": "JobArticle2",
+      "fields": {
+          "article_id": "JobArticle2",
+          "job_tag_names": "Job1",
+          "title": "Job Article 2",
+          "body": "Body of Job Article 2",
+          "created_date": "2023-01-02T00:00:00Z",
+          "updated_date": "2023-01-02T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.jobarticle",
+      "pk": "JobArticle3",
+      "fields": {
+          "article_id": "JobArticle3",
+          "job_tag_names": "Job2",
+          "title": "Job Article 3",
+          "body": "Body of Job Article 3",
+          "created_date": "2023-01-03T00:00:00Z",
+          "updated_date": "2023-01-03T00:00:00Z",
+          "is_deleted": false
+      }
+  },
+  {
+      "model": "blog.jobarticle",
+      "pk": "JobArticle4",
+      "fields": {
+          "article_id": "JobArticle4",
+          "job_tag_names": "Job1, Job2",
+          "title": "Job Article 4",
+          "body": "Body of Job Article 4",
+          "created_date": "2023-01-04T00:00:00Z",
+          "updated_date": "2023-01-04T00:00:00Z",
+          "is_deleted": false
+      }
+  }
+]

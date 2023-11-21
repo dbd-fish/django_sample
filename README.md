@@ -21,6 +21,15 @@ http://localhost:5050/browser/
 インストールしたものを確認
 pip list
 
+テーブルを変更した場合の儀式
+    新しいモデルをもとにマイグレーションファイルの生成
+    python manage.py makemigrations
+    マイグレーションファイルを実行して、新しいモデルをDBに反映させる
+    python manage.py migrate
+    ダミーデータの挿入
+    python manage.py loaddata dummy_data.json
+
+    注意：テーブル内のデータも削除したい場合はDBを削除する必要あり
 
 # 設計メモ
 DjangoはアプリごとにURLやテーブルを作るっぽい
@@ -62,6 +71,7 @@ DjangoはアプリごとにURLやテーブルを作るっぽい
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
 ログを作る
 PoetryとPyenvなどの導入
+データベース名、ユーザ名、パスワードを適切なものに設定する。
 
 # メモ
 docker container exec -it django_sample-web-1 bash
@@ -84,6 +94,8 @@ docker-compose up --build
 
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
 
+コンテナにPostgres接続用ツールをインストール
+sudo apt-get install postgresql-client
 
 DBのルートアカウント
 Username (leave blank to use 'root'): root
