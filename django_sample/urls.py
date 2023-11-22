@@ -1,3 +1,4 @@
+# blog/urls.py
 """
 URL configuration for django_sample project.
 

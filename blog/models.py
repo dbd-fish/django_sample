@@ -1,3 +1,4 @@
+# blog/models.py
 from django.core.exceptions import ValidationError
 from django.db import models
 from shortuuidfield import ShortUUIDField
@@ -65,6 +66,10 @@ class PrivateArticle(models.Model):
         # カンマで区切られたタグをリストに変換
         tag_names = [tag.strip() for tag in self.private_tag_names.split(',')]
 
+        # カンマが含まれていない場合は正常終了
+        if not any(tag_names):
+            return
+        
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
@@ -106,6 +111,10 @@ class JobArticle(models.Model):
         """
         # カンマで区切られたタグをリストに変換
         tag_names = [tag.strip() for tag in self.job_tag_names.split(',')]
+
+        # カンマが含まれていない場合は正常終了
+        if not any(tag_names):
+            return
 
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:

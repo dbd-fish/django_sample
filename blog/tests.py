@@ -1,63 +1,121 @@
-# blog/tests.py
-from django.test import TestCase
-from rest_framework.test import APIClient
+import os
+from django.core.management import call_command
+from rest_framework.test import APITestCase
+from django.urls import reverse
 from rest_framework import status
-from .models import ArticleTag, PrivateArticle, JobArticle
-from .serializers import ArticleTagSerializer, PrivateArticleSerializer, JobArticleSerializer
+from datetime import datetime
+import json
+from blog.models import ArticleTag, PrivateArticle, JobArticle
 
-class BaseAPITestCase(TestCase):
+
+class BlogApiTest(APITestCase):
     def setUp(self):
-        self.client = APIClient()
+        # カレントディレクトリを移動
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(current_directory)
 
-        # ArticleTagの初期データ
-        ArticleTag.objects.create(tag_name='Private1', tag_type=1, created_date='2023-01-01T00:00:00Z', updated_date='2023-01-01T00:00:00Z', is_deleted=False)
-        ArticleTag.objects.create(tag_name='Private2', tag_type=1, created_date='2023-01-02T00:00:00Z', updated_date='2023-01-02T00:00:00Z', is_deleted=False)
-        ArticleTag.objects.create(tag_name='Job1', tag_type=2, created_date='2023-01-03T00:00:00Z', updated_date='2023-01-03T00:00:00Z', is_deleted=False)
-        ArticleTag.objects.create(tag_name='Job2', tag_type=2, created_date='2023-01-04T00:00:00Z', updated_date='2023-01-04T00:00:00Z', is_deleted=False)
+        # フィクスチャを読み込む
+        call_command('loaddata', 'dummy_data.json')
 
-        # PrivateArticleの初期データ
-        PrivateArticle.objects.create(article_id='PrivateArticle1', private_tag_names='Private1, Private2', title='Private Article 1', body='Body of Private Article 1', created_date='2023-01-01T00:00:00Z', updated_date='2023-01-01T00:00:00Z', is_deleted=False)
-        PrivateArticle.objects.create(article_id='PrivateArticle2', private_tag_names='Private1, Private2', title='Private Article 2', body='Body of Private Article 2', created_date='2023-01-02T00:00:00Z', updated_date='2023-01-02T00:00:00Z', is_deleted=False)
-        PrivateArticle.objects.create(article_id='PrivateArticle3', private_tag_names='Private2', title='Private Article 3', body='Body of Private Article 3', created_date='2023-01-03T00:00:00Z', updated_date='2023-01-03T00:00:00Z', is_deleted=False)
-        PrivateArticle.objects.create(article_id='PrivateArticle4', private_tag_names='Private1', title='Private Article 4', body='Body of Private Article 4', created_date='2023-01-04T00:00:00Z', updated_date='2023-01-04T00:00:00Z', is_deleted=False)
-
-        # JobArticleの初期データ
-        JobArticle.objects.create(article_id='JobArticle1', job_tag_names='Job1, Job2', title='Job Article 1', body='Body of Job Article 1', created_date='2023-01-01T00:00:00Z', updated_date='2023-01-01T00:00:00Z', is_deleted=False)
-        JobArticle.objects.create(article_id='JobArticle2', job_tag_names='Job1', title='Job Article 2', body='Body of Job Article 2', created_date='2023-01-02T00:00:00Z', updated_date='2023-01-02T00:00:00Z', is_deleted=False)
-        JobArticle.objects.create(article_id='JobArticle3', job_tag_names='Job2', title='Job Article 3', body='Body of Job Article 3', created_date='2023-01-03T00:00:00Z', updated_date='2023-01-03T00:00:00Z', is_deleted=False)
-        JobArticle.objects.create(article_id='JobArticle4', job_tag_names='Job1, Job2', title='Job Article 4', body='Body of Job Article 4', created_date='2023-01-04T00:00:00Z', updated_date='2023-01-04T00:00:00Z', is_deleted=False)
-
-class ArticleTagAPITestCase(BaseAPITestCase):
-    def test_create_article_tag(self):
-        # ArticleTagを作成するAPIのテスト
-        response = self.client.post('/api/article-tag/', {'tag_name': 'TestTag', 'tag_type': 1}, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(ArticleTag.objects.count(), 1)
-        self.assertEqual(ArticleTag.objects.get().tag_name, 'TestTag')
-
-    def test_get_all_article_tags(self):
-        # 全てのArticleTagを取得するAPIのテスト
-        response = self.client.get('/api/article-tag/')
+    def test_get_private_articles_all(self):
+        # 趣味関連記事の全データを取得するテスト
+        url = reverse('private-article-list')
+        response = self.client.get(url, {'req': 'all'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 4)
+        self.assertEqual(len(response.data), PrivateArticle.objects.count())
 
-    def test_get_filtered_article_tags(self):
-        # フィルタリングされたArticleTagを取得するAPIのテスト
-        response = self.client.get('/api/article-tag/', {'req': 'Private1', 'tag_type': 1})
+    def test_get_private_articles_by_id(self):
+        # 趣味関連記事をIDで取得するテスト
+        article_id = 'PrivateArticle1'
+        url = reverse('private-article-list')
+        response = self.client.get(url, {'req': article_id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['tag_name'], 'Private1')
+        self.assertEqual(response.data[0]['article_id'], article_id)
 
-class PrivateArticleAPITestCase(BaseAPITestCase):
-    def test_create_private_article(self):
-        # PrivateArticleを作成するAPIのテスト
-        response = self.client.post('/api/private-article/', {'private_tag_names': 'Private1, Private2', 'title': 'Test Article', 'body': 'Article Body'}, format='json')
+    def test_get_private_articles_invalid_req_param(self):
+        # 無効なreqパラメータでエラーを返すテスト
+        url = reverse('private-article-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_post_private_articles(self):
+        # 趣味関連記事を新規作成するテスト
+        url = reverse('private-article-list')
+        data = {'article_id': 'NewPrivateArticle', 'private_tag_names': 'Private1', 'title': 'New Private Article', 'body': 'Body of New Private Article'}
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(PrivateArticle.objects.count(), 1)
-        self.assertEqual(PrivateArticle.objects.get().title, 'Test Article')
+        self.assertEqual(PrivateArticle.objects.filter(article_id='NewPrivateArticle').count(), 1)
 
-    def test_get_all_private_articles(self):
-        # 全てのPrivateArticleを取得するAPIのテスト
-        response = self.client.get('/api/private-article/')
+    def test_get_tags_all(self):
+        # タグの全データを取得するテスト
+        url = reverse('tag-list')
+        response = self.client.get(url, {'req': 'all'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 4)
+        self.assertEqual(len(response.data), ArticleTag.objects.count())
+
+    def test_get_tags_by_type(self):
+        # タグの種類でフィルタリングしてデータを取得するテスト
+        url = reverse('tag-list')
+        response = self.client.get(url, {'tag_type': 1})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), ArticleTag.objects.filter(tag_type=1).count())
+
+    def test_get_tags_invalid_req_param(self):
+        # 無効なreqパラメータでエラーを返すテスト
+        url = reverse('tag-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+    def test_get_job_articles_all(self):
+        # 仕事関連記事の全データを取得するテスト
+        url = reverse('job-article-list')
+        response = self.client.get(url, {'req': 'all'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), JobArticle.objects.count())
+
+    def test_get_job_articles_by_id(self):
+        # 仕事関連記事をIDで取得するテスト
+        article_id = 'JobArticle1'
+        url = reverse('job-article-list')
+        response = self.client.get(url, {'req': article_id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['article_id'], article_id)
+
+    def test_get_job_articles_invalid_req_param(self):
+        # 無効なreqパラメータでエラーを返すテスト
+        url = reverse('job-article-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    # def test_post_job_articles(self):
+    #     # 仕事関連記事を新規作成するテスト
+    #     url = reverse('job-article-list')
+    #     data = {'article_id': 'NewJobArticle', 'job_tag_names': 'Job1', 'title': 'New Job Article', 'body': 'Body of New Job Article'}
+    #     response = self.client.post(url, data, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    #     self.assertEqual(JobArticle.objects.filter(article_id='NewJobArticle').count(), 1)
+
+    def test_post_job_articles(self):
+        # 新しいジョブ記事のデータ
+        new_job_article_data = {
+            "article_id": "NewJobArticle",
+            "job_tag_names": "Job1, Job2",  
+            "title": "New Job Article",
+            "body": "Body of New Job Article"
+        }
+
+        # データベースに新しい記事が存在しないことを確認
+        self.assertEqual(JobArticle.objects.filter(article_id='NewJobArticle').count(), 0)
+
+        # 新しいジョブ記事を作成するための POST リクエストを送信
+        response = self.client.post('/job_articles/', new_job_article_data, format='json')
+
+        # POST リクエストが成功したことを確認
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # データベースに新しい記事が存在することを確認
+        self.assertEqual(JobArticle.objects.filter(article_id='NewJobArticle').count(), 1)

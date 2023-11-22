@@ -1,6 +1,9 @@
 # 直近でやること
 単体テストが動かない問題の解決。
 URLからAPIの動作確認。
+ログの追加、あわよくばファイル保存。
+POSTがおかしい。
+
 
 # 大事な作業メモ
 環境立ち上げ
@@ -33,10 +36,12 @@ pip list
     注意：テーブル内のデータも削除したい場合はDBを削除する必要あり
 
 APIの動作確認
-    http://127.0.0.1:8000/tags/
-    http://127.0.0.1:8000/tags/
-    http://127.0.0.1:8000/tags/
-    http://localhost:8000/private_articles/?req=all
+    http://localhost:8000/tags/?req=all
+    http://localhost:8000/tags/?tag_type=1
+    http://localhost:8000/job_articles/?req=JobArticle1
+    http://localhost:8000/private_articles/?req=PrivateArticle1
+
+
 
 単体テストの実行
 python manage.py test blog.tests
