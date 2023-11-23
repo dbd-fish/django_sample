@@ -64,7 +64,7 @@ class PrivateArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.private_tag_names.split(',')]
+        tag_names = [tag.strip() for tag in self.private_tag_names.split(', ')]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):
@@ -110,7 +110,7 @@ class JobArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.job_tag_names.split(',')]
+        tag_names = [tag.strip() for tag in self.job_tag_names.split(', ')]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):

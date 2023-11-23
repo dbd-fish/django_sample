@@ -42,7 +42,11 @@ class BlogApiTest(APITestCase):
     def test_post_private_articles(self):
         # 趣味関連記事を新規作成するテスト
         url = reverse('private-article-list')
-        data = {'article_id': 'NewPrivateArticle', 'private_tag_names': 'Private1', 'title': 'New Private Article', 'body': 'Body of New Private Article'}
+        data = {
+            'private_tag_names': 'Private1', 
+            'title': 'New Private Article', 
+            'body': 'Body of New Private Article'
+        }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(PrivateArticle.objects.filter(article_id='NewPrivateArticle').count(), 1)
@@ -102,7 +106,6 @@ class BlogApiTest(APITestCase):
     def test_post_job_articles(self):
         # 新しいジョブ記事のデータ
         new_job_article_data = {
-            "article_id": "NewJobArticle",
             "job_tag_names": "Job1, Job2",  
             "title": "New Job Article",
             "body": "Body of New Job Article"

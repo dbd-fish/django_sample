@@ -48,12 +48,12 @@ class PrivateArticleSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 新しいフィールド 'private_tag_names_list' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = ','.join(validated_data.pop('private_tag_names_list', []))
+        validated_data['private_tag_names'] = ', '.join(validated_data.pop('private_tag_names_list', []))
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 新しいフィールド 'private_tag_names_list' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = ','.join(validated_data.pop('private_tag_names_list', []))
+        validated_data['private_tag_names'] = ', '.join(validated_data.pop('private_tag_names_list', []))
         return super().update(instance, validated_data)
 
 class JobArticleSerializer(serializers.ModelSerializer):
@@ -86,10 +86,10 @@ class JobArticleSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 新しいフィールド 'job_tag_names_list' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = ','.join(validated_data.pop('job_tag_names_list', []))
+        validated_data['job_tag_names'] = ', '.join(validated_data.pop('job_tag_names_list', []))
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 新しいフィールド 'job_tag_names_list' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = ','.join(validated_data.pop('job_tag_names_list', []))
+        validated_data['job_tag_names'] = ', '.join(validated_data.pop('job_tag_names_list', []))
         return super().update(instance, validated_data)
