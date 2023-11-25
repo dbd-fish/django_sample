@@ -1,13 +1,16 @@
 # 直近でやること
 単体テストが動かない問題の解決。
     POST時にtag_namesが入力されない
-URLからAPIの動作確認。
+
 ログの追加、あわよくばファイル保存。
 URLの自動生成できる？
 デバック環境を整える。
 
 
 # 大事な作業メモ
+コンテナビルド
+docker-compose up --build
+
 環境立ち上げ
 docker-compose up
 docker-compose up -d
@@ -86,8 +89,8 @@ DjangoはアプリごとにURLやテーブルを作るっぽい
 
 # 後でやることメモ
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
-ログを作る
-PoetryとPyenvなどの導入
+
+Peetryのデフォルトの仮想環境をONにした方がいい？
 データベース名、ユーザ名、パスワードを適切なものに設定する。
 
 # メモ
@@ -106,8 +109,7 @@ docker-compose down
 コンテナ立ち上げ
 docker-compose up -d
 
-コンテナビルド
-docker-compose up --build
+
 
 WARNING: アカウントやパスワードはテスト用なので後で書き換える
 
@@ -124,26 +126,26 @@ Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
 
 Pgadmin4の接続手順
-```
-ログイン画面が表示されます。ここで、先ほど指定した PGADMIN_DEFAULT_EMAIL と PGADMIN_DEFAULT_PASSWORD を使用してログインします。
+    ```
+    ログイン画面が表示されます。ここで、先ほど指定した PGADMIN_DEFAULT_EMAIL と PGADMIN_DEFAULT_PASSWORD を使用してログインします。
 
-ログインしたら、左側のナビゲーションパネルで「Servers」を展開し、「PostgreSQL」を右クリックします。
+    ログインしたら、左側のナビゲーションパネルで「Servers」を展開し、「PostgreSQL」を右クリックします。
 
-「Create」を選択し、「Server...」をクリックします。
+    「Create」を選択し、「Server...」をクリックします。
 
-新しいサーバーの設定画面が表示されます。以下の情報を入力します：
+    新しいサーバーの設定画面が表示されます。以下の情報を入力します：
 
-Docstringに準拠したコメントをつける
+    Docstringに準拠したコメントをつける
 
-Name: 任意の名前を入力します（例: My PostgreSQL Server）。
-Connection タブ:
-Host name/address: PostgreSQL サーバーのホスト名または IP アドレスを入力します。通常は Docker Compose ファイル内で指定したコンテナ名（例: db）が使えます。
-Port: PostgreSQL のポート番号 (デフォルトは 5432)。
-Maintenance database: POSTGRES_DB で指定したデータベース名（例: mydatabase）。
-Username: POSTGRES_USER で指定したユーザー名（例: user）。
-Password: POSTGRES_PASSWORD で指定したパスワード（例: password）。
-「Save」をクリックして設定を保存します。
-```
+    Name: 任意の名前を入力します（例: My PostgreSQL Server）。
+    Connection タブ:
+    Host name/address: PostgreSQL サーバーのホスト名または IP アドレスを入力します。通常は Docker Compose ファイル内で指定したコンテナ名（例: db）が使えます。
+    Port: PostgreSQL のポート番号 (デフォルトは 5432)。
+    Maintenance database: POSTGRES_DB で指定したデータベース名（例: mydatabase）。
+    Username: POSTGRES_USER で指定したユーザー名（例: user）。
+    Password: POSTGRES_PASSWORD で指定したパスワード（例: password）。
+    「Save」をクリックして設定を保存します。
+    ```
 
 UUID
 https://zenn.dev/kaorumori/articles/08ff8106300a7b
@@ -155,3 +157,10 @@ https://zenn.dev/j5ik2o/articles/a085ab3e3d0f197f6559
 
 参考ブログ
 https://itosae.com/archives/467
+
+
+環境構築の参考資料
+https://zv-louis.hatenablog.com/entry/2022/01/10/135321
+
+チャット保存
+https://chat.openai.com/share/441a217f-f795-4434-b0d9-c1b9276987e9

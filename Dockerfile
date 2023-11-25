@@ -4,12 +4,18 @@ FROM python:3.12.0
 # 作業ディレクトリを設定
 WORKDIR /app
 
-# 必要なパッケージをインストール
-COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+# Poetryのインストール
+RUN pip install poetry
 
-# psycopg2をインストール
-RUN pip install psycopg2-binary
+# Poetryのパスの設定
+ENV PATH /root/.local/bin:$PATH
+
+# Poetryが仮想環境を生成しないようにする
+RUN poetry config virtualenvs.create false
+
+# 依存パッケージをコピーしてインストール
+COPY pyproject.toml poetry.lock /app/
+RUN poetry install
 
 # プロジェクトのファイルをコピー
 COPY . /app/
