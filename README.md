@@ -2,9 +2,9 @@
 単体テストが動かない問題の解決。
     POST時にtag_namesが入力されない
 
-あわよくばファイル保存。
 URLの自動生成できる？
-デバック環境を整える。
+
+ログを整える。
 
 
 # 大事な作業メモ
@@ -92,6 +92,8 @@ WARNING: アカウントやパスワードはテスト用なので後で書き�
 
 Peetryのデフォルトの仮想環境をONにした方がいい？
 データベース名、ユーザ名、パスワードを適切なものに設定する。
+デバック環境を整える。
+
 
 # メモ
 docker container exec -it django_sample-web-1 bash
@@ -146,6 +148,20 @@ Pgadmin4の接続手順
     Password: POSTGRES_PASSWORD で指定したパスワード（例: password）。
     「Save」をクリックして設定を保存します。
     ```
+
+poetry関連
+    設定値一覧
+    poetry config --list
+    設定値変更
+    poetry config virtualenvs.in-project false
+    インスール一覧
+    poetry show
+
+    Vsceode上で[Ctrl]+[Shift]+[p]から、`python select interpreter`を選択して正しいインタプリンタを洗濯する。
+    (localではなくコンテナのPython指定する)
+
+    https://zenn.dev/utt3519/articles/615b3f73640a46#vs-code%E3%81%A7%E3%81%AE%E9%96%8B%E7%99%BA
+
 
 UUID
 https://zenn.dev/kaorumori/articles/08ff8106300a7b

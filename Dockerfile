@@ -15,7 +15,7 @@ RUN poetry config virtualenvs.create false
 
 # 依存パッケージをコピーしてインストール
 COPY pyproject.toml poetry.lock /app/
-RUN poetry install
+RUN poetry install --no-interaction
 
 # プロジェクトのファイルをコピー
 COPY . /app/
