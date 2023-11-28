@@ -4,7 +4,7 @@
 
 URLの自動生成できる？
 
-ログを整える。
+ログを整える。(構造化ログにする)
 
 
 # 大事な作業メモ
@@ -178,5 +178,5 @@ https://itosae.com/archives/467
 環境構築の参考資料
 https://zv-louis.hatenablog.com/entry/2022/01/10/135321
 
-チャット保存
+ChatGPTチャット保存
 https://chat.openai.com/share/441a217f-f795-4434-b0d9-c1b9276987e9

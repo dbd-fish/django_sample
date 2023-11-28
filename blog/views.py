@@ -26,11 +26,13 @@ class ArticleTagView(APIView):
     def get(self, request, *args, **kwargs):
         try:
             # ログを追加（関数開始）
-            logging.info('GET request received for ArticleTagView')
+            logging.info('ArticleTagView.get start')
 
             # クエリパラメータ 'req' と 'tag_type' を取得
             req_param = request.query_params.get('req', None)
             tag_type_param = request.query_params.get('tag_type', None)
+            logging.debug(f"ArticleTagView.get req_param = {req_param}")
+            logging.debug(f"ArticleTagView.get tag_type_param = {tag_type_param}")
 
             # クエリパラメータにより取得対象を分岐
             if req_param == 'all':
@@ -41,11 +43,14 @@ class ArticleTagView(APIView):
                 tags = ArticleTag.objects.filter(tag_type=tag_type_param)
             else:
                 # 'req' パラメータが指定された場合はエラーレスポンス
-                logging.error('Invalid req parameter for this endpoint')
+                logging.error('ArticleTagView.get invalid request parameter')
                 return Response({'error': 'Invalid req parameter for this endpoint'}, status=status.HTTP_400_BAD_REQUEST)
 
             # シリアライザを使ってデータをJSONに変換
             serializer = ArticleTagSerializer(tags, many=True)
+            logging.info(f"ArticleTagView.get serializer = {type(serializer)}")
+            logging.info(f"ArticleTagView.get serializer = {serializer}")
+
             # レスポンスを返す
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -55,7 +60,7 @@ class ArticleTagView(APIView):
             return Response({'error': 'An error occurred'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         finally:
             # ログを追加（関数終了）
-            logging.info('GET request processed for ArticleTagView')
+            logging.info('ArticleTagView.get end')
 
     def post(self, request, *args, **kwargs):
         try:
@@ -81,6 +86,7 @@ class ArticleTagView(APIView):
             # ログを追加（関数終了）
             logging.info('POST request processed for ArticleTagView')
 
+# PrivateArticleView の修正
 class PrivateArticleView(APIView):
     """
     趣味関連記事に関するAPI
@@ -153,6 +159,7 @@ class PrivateArticleView(APIView):
             # ログを追加（関数終了）
             logging.info('POST request processed for PrivateArticleView')
 
+# JobArticleView の修正
 class JobArticleView(APIView):
     """
     仕事関連記事に関するAPI
