@@ -36,7 +36,7 @@ class PrivateArticleSerializer(serializers.ModelSerializer):
     """
 
     # カンマで区切られたタグ名をリストに変換するためのフィールド
-    private_tag_names_list = serializers.ListField(
+    private_tag_names = serializers.CharField(
         write_only=True,
         required=False,
         help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド"
@@ -47,14 +47,15 @@ class PrivateArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        # 新しいフィールド 'private_tag_names_list' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = ', '.join(validated_data.pop('private_tag_names_list', []))
+        # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
+        validated_data['private_tag_names'] = validated_data.pop('private_tag_names', '')
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        # 新しいフィールド 'private_tag_names_list' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = ', '.join(validated_data.pop('private_tag_names_list', []))
+        # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
+        validated_data['private_tag_names'] = validated_data.pop('private_tag_names', '')
         return super().update(instance, validated_data)
+
 
 class JobArticleSerializer(serializers.ModelSerializer):
     """
@@ -74,7 +75,7 @@ class JobArticleSerializer(serializers.ModelSerializer):
     """
 
     # カンマで区切られたタグ名をリストに変換するためのフィールド
-    job_tag_names_list = serializers.ListField(
+    job_tag_names = serializers.CharField(
         write_only=True,
         required=False,
         help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド"
@@ -85,11 +86,11 @@ class JobArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        # 新しいフィールド 'job_tag_names_list' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = ', '.join(validated_data.pop('job_tag_names_list', []))
+        # 新しいフィールド 'job_tag_names' を 'job_tag_names' にコピー
+        validated_data['job_tag_names'] = validated_data.pop('job_tag_names', '')
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        # 新しいフィールド 'job_tag_names_list' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = ', '.join(validated_data.pop('job_tag_names_list', []))
+        # 新しいフィールド 'job_tag_names' を 'job_tag_names' にコピー
+        validated_data['job_tag_names'] = validated_data.pop('job_tag_names', '')
         return super().update(instance, validated_data)
