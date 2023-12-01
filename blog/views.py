@@ -38,8 +38,7 @@ class ArticleTagView(APIView):
             # クエリパラメータ 'req' と 'tag_type' を取得
             req_param = request.query_params.get('req', None)
             tag_type_param = request.query_params.get('tag_type', None)
-            # logging.debug(f"ArticleTagView.get req_param = {req_param}")
-            logging.debug('ArticleTagView.get req_param', extra={'req_param': req_param})
+            logging.debug(f"ArticleTagView.get req_param = {req_param}")
             logging.debug(f"ArticleTagView.get tag_type_param = {tag_type_param}")
 
             # クエリパラメータにより取得対象を分岐
@@ -76,6 +75,8 @@ class ArticleTagView(APIView):
 
             # POSTされたデータをシリアライザに渡す
             serializer = ArticleTagSerializer(data=request.data)
+            logging.info(f'ArticleTagView.post serializer.data = {serializer}')
+
             if serializer.is_valid():
                 # バリデーションが通れば保存
                 serializer.save()
@@ -152,6 +153,9 @@ class PrivateArticleView(APIView):
 
             # POSTされたデータをシリアライザに渡す
             serializer = PrivateArticleSerializer(data=request.data)
+            logging.info(f'PrivateArticleView.post serializer.data = {serializer}')
+
+
             if serializer.is_valid():
                 # バリデーションが通れば保存
                 serializer.save()
@@ -228,6 +232,8 @@ class JobArticleView(APIView):
 
             # POSTされたデータをシリアライザに渡す
             serializer = JobArticleSerializer(data=request.data)
+            logging.info(f'PrivateArticleView.post serializer.data = {serializer}')
+
             if serializer.is_valid():
                 # バリデーションが通れば保存
                 serializer.save()
