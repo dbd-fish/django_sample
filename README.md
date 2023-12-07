@@ -1,10 +1,10 @@
 # 直近でやること
-
-URLの自動生成できる？
 Vueをのせる。
 
-blackとか導入する。
+ruffとmypyを導入する。
 (Github Actionとか導入できるか確かめる)
+
+URLクエリから記事データを取得する
 
 # 大事な作業メモ
 コンテナビルド
@@ -13,6 +13,9 @@ docker-compose up --build
 環境立ち上げ
 docker-compose up
 docker-compose up -d
+
+サービス停止
+docker compose stop
 
 コンテナに入る
 docker container exec -it django_sample-web-1 bash
@@ -26,8 +29,7 @@ http://localhost:8000/admin/auth/user/add/
 PgAdminのURL
 http://localhost:5050/browser/
 
-インストールしたものを確認
-pip list
+
 
 テーブルを変更した場合の儀式
     新しいモデルをもとにマイグレーションファイルの生成
@@ -45,10 +47,13 @@ APIの動作確認
     http://localhost:8000/job_articles/?req=JobArticle1
     http://localhost:8000/private_articles/?req=PrivateArticle1
 
-
-
 単体テストの実行
 python manage.py test blog.tests
+
+フォーマッタなど
+    自動修正
+    ruff check --fix .
+
 
 # 設計メモ
 DjangoはアプリごとにURLやテーブルを作るっぽい
@@ -162,6 +167,23 @@ poetry関連
     https://zenn.dev/utt3519/articles/615b3f73640a46#vs-code%E3%81%A7%E3%81%AE%E9%96%8B%E7%99%BA
 
 
+ruffとかmypyとかgithub actionsとか
+    公式
+    https://docs.astral.sh/ruff/rules/
+
+    Github Actionは下記のように設定するだけ？
+    https://github.com/astral-sh/ruff
+
+    これ通りにやればいいのか？
+    https://docs.astral.sh/ruff/integrations/
+
+    パブリックリポジトリならGithub Actionsは無料
+    https://docs.github.com/ja/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+    
+
+
+
+
 UUID
 https://zenn.dev/kaorumori/articles/08ff8106300a7b
 
@@ -179,3 +201,15 @@ https://zv-louis.hatenablog.com/entry/2022/01/10/135321
 
 ChatGPTチャット保存
 https://chat.openai.com/share/441a217f-f795-4434-b0d9-c1b9276987e9
+https://chat.openai.com/share/5b09fa82-c482-4c00-bf2a-b42d7646acaa
+
+
+
+
+インストールしたものを確認
+pip list
+
+DjangoはURLファイルをアプリごとなど小分けにできる。
+アプリが大量にありURLも大量にあるなら小分けは有用だが、
+アプリとURLが少ないと恩恵はない。
+https://qiita.com/kotayanagi/items/b97fe4a85b03cc6880ac
