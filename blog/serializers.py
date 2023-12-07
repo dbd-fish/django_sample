@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import ArticleTag, PrivateArticle, JobArticle
 
+
 class ArticleTagSerializer(serializers.ModelSerializer):
     """
     ArticleTagモデルのシリアライザ
@@ -16,7 +17,8 @@ class ArticleTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleTag
         # これで全てのカラムを指定できる
-        fields = '__all__'
+        fields = "__all__"
+
 
 class PrivateArticleSerializer(serializers.ModelSerializer):
     """
@@ -39,21 +41,25 @@ class PrivateArticleSerializer(serializers.ModelSerializer):
     private_tag_names = serializers.CharField(
         write_only=True,
         required=False,
-        help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド"
+        help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド",
     )
 
     class Meta:
         model = PrivateArticle
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = validated_data.pop('private_tag_names', '')
+        validated_data["private_tag_names"] = validated_data.pop(
+            "private_tag_names", ""
+        )
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
-        validated_data['private_tag_names'] = validated_data.pop('private_tag_names', '')
+        validated_data["private_tag_names"] = validated_data.pop(
+            "private_tag_names", ""
+        )
         return super().update(instance, validated_data)
 
 
@@ -78,19 +84,19 @@ class JobArticleSerializer(serializers.ModelSerializer):
     job_tag_names = serializers.CharField(
         write_only=True,
         required=False,
-        help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド"
+        help_text="カンマで区切られたタグ名の文字列をリストに変換するためのフィールド",
     )
 
     class Meta:
         model = JobArticle
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         # 新しいフィールド 'job_tag_names' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = validated_data.pop('job_tag_names', '')
+        validated_data["job_tag_names"] = validated_data.pop("job_tag_names", "")
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 新しいフィールド 'job_tag_names' を 'job_tag_names' にコピー
-        validated_data['job_tag_names'] = validated_data.pop('job_tag_names', '')
+        validated_data["job_tag_names"] = validated_data.pop("job_tag_names", "")
         return super().update(instance, validated_data)

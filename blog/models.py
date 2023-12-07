@@ -17,8 +17,8 @@ class ArticleTag(models.Model):
     """
 
     TAG_TYPE_CHOICES = (
-        (1, 'Private'),
-        (2, 'Job'),
+        (1, "Private"),
+        (2, "Job"),
     )
     tag_name = models.CharField(max_length=50, primary_key=True)
     tag_type = models.IntegerField(choices=TAG_TYPE_CHOICES, default=1)
@@ -27,7 +27,7 @@ class ArticleTag(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created_date']
+        ordering = ["created_date"]
 
 
 class PrivateArticle(models.Model):
@@ -53,7 +53,7 @@ class PrivateArticle(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created_date']
+        ordering = ["created_date"]
 
     def clean(self):
         """
@@ -64,16 +64,20 @@ class PrivateArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.private_tag_names.split(', ')]
+        tag_names = [tag.strip() for tag in self.private_tag_names.split(", ")]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):
             return
-        
+
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError({'private_tag_names': f'Tag {tag_name} does not exist in ArticleTag table.'})
+                raise ValidationError(
+                    {
+                        "private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
+                    }
+                )
 
 
 class JobArticle(models.Model):
@@ -99,7 +103,7 @@ class JobArticle(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created_date']
+        ordering = ["created_date"]
 
     def clean(self):
         """
@@ -110,7 +114,7 @@ class JobArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.job_tag_names.split(', ')]
+        tag_names = [tag.strip() for tag in self.job_tag_names.split(", ")]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):
@@ -119,4 +123,8 @@ class JobArticle(models.Model):
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError({'job_tag_names': f'Tag {tag_name} does not exist in ArticleTag table.'})
+                raise ValidationError(
+                    {
+                        "job_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
+                    }
+                )

@@ -5,45 +5,69 @@ import shortuuidfield.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ArticleTag',
+            name="ArticleTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tag_name', models.CharField(max_length=50)),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('is_deleted', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("tag_name", models.CharField(max_length=50)),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                ("is_deleted", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='PrivateArticle',
+            name="PrivateArticle",
             fields=[
-                ('article_id', shortuuidfield.fields.ShortUUIDField(blank=True, editable=False, max_length=22, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('body', models.TextField()),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('is_deleted', models.BooleanField(default=False)),
-                ('private_tag_names', models.ManyToManyField(to='blog.articletag')),
+                (
+                    "article_id",
+                    shortuuidfield.fields.ShortUUIDField(
+                        blank=True,
+                        editable=False,
+                        max_length=22,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                ("body", models.TextField()),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                ("is_deleted", models.BooleanField(default=False)),
+                ("private_tag_names", models.ManyToManyField(to="blog.articletag")),
             ],
         ),
         migrations.CreateModel(
-            name='JobArticle',
+            name="JobArticle",
             fields=[
-                ('article_id', shortuuidfield.fields.ShortUUIDField(blank=True, editable=False, max_length=22, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('body', models.TextField()),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('is_deleted', models.BooleanField(default=False)),
-                ('job_tag_names', models.ManyToManyField(to='blog.articletag')),
+                (
+                    "article_id",
+                    shortuuidfield.fields.ShortUUIDField(
+                        blank=True,
+                        editable=False,
+                        max_length=22,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                ("body", models.TextField()),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                ("is_deleted", models.BooleanField(default=False)),
+                ("job_tag_names", models.ManyToManyField(to="blog.articletag")),
             ],
         ),
     ]
