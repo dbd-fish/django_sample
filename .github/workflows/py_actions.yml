@@ -3,9 +3,10 @@ name: Type Check Only
 on:
   push:
     branches:
-      - main
-      - development
-      - feature/*
+      # - main
+      # - development
+      # - feature/*
+      - github_action_test
 
 jobs:
   type-check-only:
