@@ -1,9 +1,9 @@
-name: Type Check Only
+name: mypy check
 
 on:
   push:
     branches:
-      # - main
+      - main
       # - development
       # - feature/*
       - github_action_test
