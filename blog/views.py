@@ -1,16 +1,17 @@
 # views.py
 import logging
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
-from .models import ArticleTag, PrivateArticle, JobArticle
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .logging_config import setup_logging  # 既存のlogging_configをインポート
+from .models import ArticleTag, JobArticle, PrivateArticle
 from .serializers import (
     ArticleTagSerializer,
-    PrivateArticleSerializer,
     JobArticleSerializer,
+    PrivateArticleSerializer,
 )
-from .logging_config import setup_logging  # 既存のlogging_configをインポート
 
 # インポート時にログ設定を行う
 setup_logging()

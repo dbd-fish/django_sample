@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import ArticleTag, PrivateArticle, JobArticle
+
+from .models import ArticleTag, JobArticle, PrivateArticle
 
 
 class ArticleTagSerializer(serializers.ModelSerializer):
