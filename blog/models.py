@@ -102,7 +102,7 @@ class JobArticle(models.Model):
     body: models.TextField = models.TextField()
     created_date: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     updated_date: models.DateTimeField = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+    is_deleted: models.BooleanField = models.BooleanField(default=False)
 
     class Meta:
         ordering: List[str] = ["created_date"]
