@@ -27,8 +27,8 @@ DEBUG = True
 
 # TODO: mypyに引っかかるため、とりあえずローカル環境を入れておく
 ALLOWED_HOSTS = [
-    'localhost',
-    'www.localhost',
+    "localhost",
+    "www.localhost",
 ]
 
 

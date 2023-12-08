@@ -51,16 +51,12 @@ class PrivateArticleSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
-        validated_data["private_tag_names"] = validated_data.pop(
-            "private_tag_names", ""
-        )
+        validated_data["private_tag_names"] = validated_data.pop("private_tag_names", "")
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 新しいフィールド 'private_tag_names' を 'private_tag_names' にコピー
-        validated_data["private_tag_names"] = validated_data.pop(
-            "private_tag_names", ""
-        )
+        validated_data["private_tag_names"] = validated_data.pop("private_tag_names", "")
         return super().update(instance, validated_data)
 
 

@@ -76,11 +76,7 @@ class PrivateArticle(models.Model):
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError(
-                    {
-                        "private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
-                    }
-                )
+                raise ValidationError({"private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."})
         return
 
 
@@ -127,8 +123,4 @@ class JobArticle(models.Model):
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError(
-                    {
-                        "job_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
-                    }
-                )
+                raise ValidationError({"job_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."})

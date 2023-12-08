@@ -28,11 +28,17 @@ module = [
 ignore_missing_imports = true
 
 
+# ruffのフォーマット設定
+[tool.ruff]
+line-length = 200
+
+# ruffのリント設定
 [tool.ruff.lint]
+
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
 select = [
     "E4", "E7", "E9", "F", # この4つはデフォルト
     "I", # isort
-    
+
 
 ]

@@ -86,15 +86,11 @@ class BlogApiTest(APITestCase):
             "body": "Private Article Body",
         }
         initial_count = PrivateArticle.objects.count()
-        response = self.client.post(
-            "/private_articles/", data, content_type="application/json"
-        )
+        response = self.client.post("/private_articles/", data, content_type="application/json")
         # ステータスコードが 201 Created であることを確認
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # アサーション: プライベート記事がデータベースに存在することを確認
-        self.assertTrue(
-            PrivateArticle.objects.filter(title="Private Article Title").exists()
-        )
+        self.assertTrue(PrivateArticle.objects.filter(title="Private Article Title").exists())
         # アサーション: レコード数が1増加していることを確認
         self.assertEqual(PrivateArticle.objects.count(), initial_count + 1)
 
@@ -102,9 +98,7 @@ class BlogApiTest(APITestCase):
         # 無効なデータで POST リクエストを作成
         data = {"invalid_field": "some_value"}
         initial_count = PrivateArticle.objects.count()
-        response = self.client.post(
-            "/private_articles/", data, content_type="application/json"
-        )
+        response = self.client.post("/private_articles/", data, content_type="application/json")
         # エラーレスポンスが返ってくることを確認
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         # アサーション: レコード数が変化していないことを確認
@@ -135,9 +129,7 @@ class BlogApiTest(APITestCase):
             "body": "Job Article Body",
         }
         initial_count = JobArticle.objects.count()
-        response = self.client.post(
-            "/job_articles/", data, content_type="application/json"
-        )
+        response = self.client.post("/job_articles/", data, content_type="application/json")
         # ステータスコードが 201 Created であることを確認
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # アサーション: ジョブ記事がデータベースに存在することを確認
@@ -149,9 +141,7 @@ class BlogApiTest(APITestCase):
         # 無効なデータで POST リクエストを作成
         data = {"invalid_field": "some_value"}
         initial_count = JobArticle.objects.count()
-        response = self.client.post(
-            "/job_articles/", data, content_type="application/json"
-        )
+        response = self.client.post("/job_articles/", data, content_type="application/json")
         # エラーレスポンスが返ってくることを確認
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         # アサーション: レコード数が変化していないことを確認
