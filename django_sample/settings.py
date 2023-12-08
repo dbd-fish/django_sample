@@ -25,7 +25,11 @@ SECRET_KEY = "django-insecure-v)uyw(*-qyreiot&&mt4dk=ii(hq#sp90u+2+g$5!b09a3us0_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# TODO: mypyに引っかかるため、とりあえずローカル環境を入れておく
+ALLOWED_HOSTS = [
+    'localhost',
+    'www.localhost',
+]
 
 
 # Application definition

@@ -51,8 +51,10 @@ APIの動作確認
 python manage.py test blog.tests
 
 フォーマッタなど
-    自動修正
+    ruff自動修正
     ruff check --fix .
+    mypyチェック
+    poetry run mypy blog django_sample
 
 
 # 設計メモ

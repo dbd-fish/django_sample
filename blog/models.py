@@ -2,7 +2,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from shortuuidfield import ShortUUIDField
-
+from typing import List, Tuple
 
 class ArticleTag(models.Model):
     """
@@ -16,18 +16,19 @@ class ArticleTag(models.Model):
     - 論理削除フラグ(is_deleted)
     """
 
-    TAG_TYPE_CHOICES = (
+    TAG_TYPE_CHOICES: List[Tuple[int, str]] = [
         (1, "Private"),
         (2, "Job"),
-    )
-    tag_name = models.CharField(max_length=50, primary_key=True)
-    tag_type = models.IntegerField(choices=TAG_TYPE_CHOICES, default=1)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+    ]
+
+    tag_name: models.CharField = models.CharField(max_length=50, primary_key=True)
+    tag_type: models.IntegerField = models.IntegerField(choices=TAG_TYPE_CHOICES, default=1)
+    created_date: models.DateTimeField = models.DateTimeField(auto_now_add=True)
+    updated_date: models.DateTimeField = models.DateTimeField(auto_now=True)
+    is_deleted: models.BooleanField = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["created_date"]
+        ordering: List[str] = ["created_date"]
 
 
 class PrivateArticle(models.Model):
@@ -44,18 +45,18 @@ class PrivateArticle(models.Model):
     - 論理削除フラグ(is_deleted)
     """
 
-    article_id = ShortUUIDField(primary_key=True)
-    private_tag_names = models.CharField(max_length=255, default="default_value")
-    title = models.CharField(max_length=100)
-    body = models.TextField()
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+    article_id: ShortUUIDField = ShortUUIDField(primary_key=True)
+    private_tag_names: models.CharField = models.CharField(max_length=255, default="default_value")
+    title: models.CharField = models.CharField(max_length=100)
+    body: models.TextField = models.TextField()
+    created_date: models.DateTimeField = models.DateTimeField(auto_now_add=True)
+    updated_date: models.DateTimeField = models.DateTimeField(auto_now=True)
+    is_deleted: models.BooleanField = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["created_date"]
+        ordering: List[str] = ["created_date"]
 
-    def clean(self):
+    def clean(self) -> None:
         """
         カンマで区切られたタグ名をリストに変換し、
         各タグがArticleTagに存在するか確認する。
@@ -64,7 +65,7 @@ class PrivateArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.private_tag_names.split(", ")]
+        tag_names: List[str] = [tag.strip() for tag in self.private_tag_names.split(", ")]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):
@@ -78,6 +79,7 @@ class PrivateArticle(models.Model):
                         "private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
                     }
                 )
+        return
 
 
 class JobArticle(models.Model):
@@ -94,18 +96,18 @@ class JobArticle(models.Model):
     - 論理削除フラグ(is_deleted)
     """
 
-    article_id = ShortUUIDField(primary_key=True)
-    job_tag_names = models.CharField(max_length=255, default="default_value")
-    title = models.CharField(max_length=100)
-    body = models.TextField()
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+    article_id: ShortUUIDField = ShortUUIDField(primary_key=True)
+    job_tag_names: models.CharField = models.CharField(max_length=255, default="default_value")
+    title: models.CharField = models.CharField(max_length=100)
+    body: models.TextField = models.TextField()
+    created_date: models.DateTimeField = models.DateTimeField(auto_now_add=True)
+    updated_date: models.DateTimeField = models.DateTimeField(auto_now=True)
+    is_deleted: models.BooleanField = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["created_date"]
+        ordering: List[str] = ["created_date"]
 
-    def clean(self):
+    def clean(self) -> None:
         """
         カンマで区切られたタグ名をリストに変換し、
         各タグがArticleTagに存在するか確認する。
@@ -114,7 +116,7 @@ class JobArticle(models.Model):
             ValidationError: タグがArticleTagに存在しない場合に発生
         """
         # カンマで区切られたタグをリストに変換
-        tag_names = [tag.strip() for tag in self.job_tag_names.split(", ")]
+        tag_names: List[str] = [tag.strip() for tag in self.job_tag_names.split(", ")]
 
         # カンマが含まれていない場合は正常終了
         if not any(tag_names):
