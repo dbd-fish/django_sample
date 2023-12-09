@@ -32,6 +32,9 @@ class ArticleTag(models.Model):
     class Meta:
         ordering: List[str] = ["created_date"]
 
+    def __str__(self) -> str:
+        return self.tag_name
+
 
 class PrivateArticle(models.Model):
     """
@@ -57,6 +60,9 @@ class PrivateArticle(models.Model):
 
     class Meta:
         ordering: List[str] = ["created_date"]
+
+    def __str__(self) -> str:
+        return self.title
 
     def clean(self) -> None:
         """
@@ -104,6 +110,9 @@ class JobArticle(models.Model):
 
     class Meta:
         ordering: List[str] = ["created_date"]
+
+    def __str__(self) -> str:
+        return self.title
 
     def clean(self) -> None:
         """
