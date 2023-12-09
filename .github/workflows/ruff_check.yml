@@ -1,0 +1,41 @@
+name: ruff check
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      # - name: Install dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install ruff
+
+      # poetryをインストール
+      - name: Install Poetry
+        run: |
+          pip install poetry==1.7.1
+          export PATH="$HOME/.local/bin:$PATH"
+          poetry --version
+
+      # poetryで仮想環境を作らないようにする(開発環境に合わせた)
+      - name: Configure Poetry
+        run: poetry config virtualenvs.create false
+
+      # パッケージを全てインストール
+      # TODO: パッケージ不足によるエラーを回避できるが無駄なインストールも含んでいる
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+          
+      # Update output format to enable automatic inline annotations.
+      - name: Run ruff check 
+        run: poetry run ruff check --output-format=github .
+
+      - name: Run ruff format 
+        run: poetry run ruff format . --check

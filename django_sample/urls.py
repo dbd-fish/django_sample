@@ -17,16 +17,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import ArticleTagView, PrivateArticleView, JobArticleView
+
+from blog.views import ArticleTagView, JobArticleView, PrivateArticleView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # タグ一覧に対するURLパターン
     path("tags/", ArticleTagView.as_view(), name="tag-list"),
     # 趣味関連記事一覧に対するURLパターン
-    path(
-        "private_articles/", PrivateArticleView.as_view(), name="private-article-list"
-    ),
+    path("private_articles/", PrivateArticleView.as_view(), name="private-article-list"),
     # 仕事関連記事一覧に対するURLパターン
     path("job_articles/", JobArticleView.as_view(), name="job-article-list"),
 ]

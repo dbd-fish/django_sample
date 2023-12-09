@@ -1,9 +1,6 @@
 # 直近でやること
 Vueをのせる。
 
-ruffとmypyを導入する。
-(Github Actionとか導入できるか確かめる)
-
 URLクエリから記事データを取得する
 
 # 大事な作業メモ
@@ -52,7 +49,8 @@ python manage.py test blog.tests
 
 フォーマッタなど
     ruff自動修正
-    ruff check --fix .
+    poetry run ruff check --fix .
+    poetry run ruff format .
     mypyチェック
     poetry run mypy blog django_sample
 
@@ -182,6 +180,18 @@ ruffとかmypyとかgithub actionsとか
     パブリックリポジトリならGithub Actionsは無料
     https://docs.github.com/ja/billing/managing-billing-for-github-actions/about-billing-for-github-actions
     
+    githubActionは.github\workflows\py_actions.ymlのようなファイルを作れば勝手にフローが開始されるっぽい。
+    https://docs.github.com/ja/actions/quickstart
+
+    ruff formtaがBlack
+    ruff checkがisortなどの代用
+
+    ruffのルール一覧
+    https://docs.astral.sh/ruff/rules/#flake8-django-dj
+
+
+
+
 
 
 

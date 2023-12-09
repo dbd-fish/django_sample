@@ -1,0 +1,41 @@
+name: mypy check
+
+on:
+  push:
+    branches:
+      - main
+      # - development
+      # - feature/*
+      - github_action_test
+
+jobs:
+  type-check-only:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12  # 使用するPythonのバージョンを指定
+
+      # poetryをインストール
+      - name: Install Poetry
+        run: |
+          pip install poetry==1.7.1
+          export PATH="$HOME/.local/bin:$PATH"
+          poetry --version
+
+      # poetryで仮想環境を作らないようにする(開発環境に合わせた)
+      - name: Configure Poetry
+        run: poetry config virtualenvs.create false
+
+      # パッケージを全てインストール
+      # TODO: パッケージ不足によるエラーを回避できるが無駄なインストールも含んでいる
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Run mypy
+        run: mypy blog django_sample  # チェックするディレクトリはこの2つのみ

@@ -1,8 +1,10 @@
 # blog/models.py
+from typing import List, Tuple
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from shortuuidfield import ShortUUIDField
-from typing import List, Tuple
+
 
 class ArticleTag(models.Model):
     """
@@ -30,6 +32,9 @@ class ArticleTag(models.Model):
     class Meta:
         ordering: List[str] = ["created_date"]
 
+    def __str__(self) -> str:
+        return self.tag_name
+
 
 class PrivateArticle(models.Model):
     """
@@ -56,6 +61,9 @@ class PrivateArticle(models.Model):
     class Meta:
         ordering: List[str] = ["created_date"]
 
+    def __str__(self) -> str:
+        return self.title
+
     def clean(self) -> None:
         """
         カンマで区切られたタグ名をリストに変換し、
@@ -74,11 +82,7 @@ class PrivateArticle(models.Model):
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError(
-                    {
-                        "private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
-                    }
-                )
+                raise ValidationError({"private_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."})
         return
 
 
@@ -107,6 +111,9 @@ class JobArticle(models.Model):
     class Meta:
         ordering: List[str] = ["created_date"]
 
+    def __str__(self) -> str:
+        return self.title
+
     def clean(self) -> None:
         """
         カンマで区切られたタグ名をリストに変換し、
@@ -125,8 +132,4 @@ class JobArticle(models.Model):
         # 各タグがArticleTagに存在するか確認
         for tag_name in tag_names:
             if not ArticleTag.objects.filter(tag_name=tag_name).exists():
-                raise ValidationError(
-                    {
-                        "job_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."
-                    }
-                )
+                raise ValidationError({"job_tag_names": f"Tag {tag_name} does not exist in ArticleTag table."})
