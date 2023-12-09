@@ -34,5 +34,8 @@ jobs:
 
           
       # Update output format to enable automatic inline annotations.
-      - name: Run Ruff
+      - name: Run ruff check 
         run: poetry run ruff check --output-format=github .
+
+      - name: Run ruff format 
+        run: poetry run ruff format .
