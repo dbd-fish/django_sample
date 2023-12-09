@@ -1,11 +1,6 @@
 # 直近でやること
 Vueをのせる。
 
-ruffとmypyを導入する。
-(Github Actionとか導入できるか確かめる)
-    linterの選定
-
-
 URLクエリから記事データを取得する
 
 # 大事な作業メモ
@@ -190,6 +185,10 @@ ruffとかmypyとかgithub actionsとか
 
     ruff formtaがBlack
     ruff checkがisortなどの代用
+
+    ruffのルール一覧
+    https://docs.astral.sh/ruff/rules/#flake8-django-dj
+
 
 
 
