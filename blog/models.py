@@ -36,16 +36,6 @@ class ArticleTag(models.Model):
         return self.tag_name
 
 
-
-
-
-
-
-
-
-
-
-
 class PrivateArticle(models.Model):
     """
     趣味関連記事のモデル
