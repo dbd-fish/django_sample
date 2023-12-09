@@ -3,6 +3,7 @@ Vueをのせる。
 
 ruffとmypyを導入する。
 (Github Actionとか導入できるか確かめる)
+    linterの選定
 
 
 URLクエリから記事データを取得する
